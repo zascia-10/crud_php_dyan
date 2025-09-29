@@ -10,10 +10,10 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
         <meta charset="UTF-8">
         <title>Daftar Buku</title>
 </head>
-<body> 
+<body>
     <h1>Daftar Buku</h1>
-    <!--Tambah Tombol/link-->
-    <p><a href="tambah.php">+ Tambah Buku</a></p>
+    <!--Tambah tombol/link-->
+    <p><a href="tambah.php">+Tambah Buku</a></p>
 
     <table border="1" cellpadding="6" cellspacing="0">
         <tr>
@@ -29,8 +29,10 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
         <td><?php echo $row['penerbit']; ?></td> 
         <td><?php echo $row['tahun_terbit']; ?></td> 
         <td>
-            <button onclick="confirmDelete(<?php echo $row ['id']; ?>)">Hapus</button>
-       </td>
+       <a href="edit.php?id=<?= $row['id'] ?>">Edit</a>
+       <a href="hapus.php?id=<?= $row['id'] ?>"onclick="return confirm('Yakin hapus data?')">Hapus</a>
+</td>
+
 </tr>
         <?php endforeach; ?>  
     <!--membuat fungsi javascript-->
