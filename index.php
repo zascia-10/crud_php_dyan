@@ -1,6 +1,6 @@
 <?php
 require "koneksi.php";
-$sql = "SELECT id, judul, nama_pengarang, penerbit, tahun_terbit FROM buku ORDER BY id DESC";
+$sql = "SELECT id, nama, tugas, deadline, status FROM tugas ORDER BY id ASC";
 $result = $mysqli->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 ?>
@@ -8,29 +8,34 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 <html Lang="id">
     <head>
         <meta charset="UTF-8">
-        <title>Daftar Buku</title>
+        <title>Daftar Tugas</title>
 </head>
 <body>
-    <h1>Daftar Buku</h1>
-    <!--Tambah tombol/link-->
-    <p><a href="tambah.php">+Tambah Buku</a></p>
+    <h2>Daftar Tugas</h2>
 
     <table border="1" cellpadding="6" cellspacing="0">
         <tr>
-            <th>Judul</th>
-            <th>Nama Pengarang</th>
-            <th>Penerbit</th>
-            <th>Tahun Terbit</th>
+            <th>#</th>
+            <th>Nama</th>
+            <th>Tugas</th>
+            <th>Deadline</th>
+            <th>Status</th>
+            <th>Aksi</th>
 </tr>
 <?php foreach ($rows as $row): ?>
     <tr>
-        <td><?php echo $row['judul']; ?></td>
-        <td><?php echo $row['nama_pengarang']; ?></td>
-        <td><?php echo $row['penerbit']; ?></td> 
-        <td><?php echo $row['tahun_terbit']; ?></td> 
+        <td><?php echo $row['id']; ?></td>
+        <td><?php echo $row['nama']; ?></td>
+        <td><?php echo $row['tugas']; ?></td>
+        <td><?php echo $row['deadline']; ?></td> 
+        <td><?php echo $row['status']; ?></td> 
         <td>
+            <?php if($row['status'] === 'selesai'); ?>
+            Tugas Selesai
        <a href="edit.php?id=<?= $row['id'] ?>">Edit</a>
-       <a href="hapus.php?id=<?= $row['id'] ?>"onclick="return confirm('Yakin hapus data?')">Hapus</a>
+       <a href="hapus.php?id=<?= $row['id'] ?>"
+       onclick="return confirm('Yakin hapus tugas ini?')">Hapus</a>
+       <a href="selesai.php?id=<?= (int)$row['id'] ?>">Tandai Selesai</a>
 </td>
 
 </tr>
@@ -38,7 +43,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
     <!--membuat fungsi javascript-->
  <script>
       function confirmDelete(id) {
-        if (confirm("Yakin ingin menghapus buku ini?")) {
+        if (confirm("Yakin ingin menghapus tugas ini?")) {
             window.location = "hapus.php?id=" + id;
         }
       }

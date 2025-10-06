@@ -3,7 +3,7 @@ require "koneksi.php";
 
 if (isset($_GET['id'])) {
     $id = (int) $_GET['id'];
-    $sql = "DELETE FROM buku WHERE id =$id";
+    $sql = "DELETE FROM tugas WHERE id =$id";
     if ($mysqli->query($sql)) {
         header("Location: index.php?deleted=1");
     } else {

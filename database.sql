@@ -1,23 +1,22 @@
 --Membuat database
-CREATE DATABASE ID NOT EXISTS buku (
-    --membuat tabel buku
-    USE perpustakaan;
+CREATE DATABASE ID NOT EXISTS tugas (
+    --membuat tabel tugas
+    USE tugas;
 ) 
 
 --membuat tabel buku 
-CREATE TABLE IF NOT EXISTS buku (
-    id_buku INT AUTO_INCREMENT PRIMARY KEY,
-    judul VARCHAR(100) NOT NULL,
-    nama_pengarang VARCHAR(100) NOT NULL,
-    penerbit VARCHAR(100),
-    tahun_terbit YEAR,
+CREATE TABLE IF NOT EXISTS tugas (
+    id_tugas INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL,
+    tugas VARCHAR(100) NOT NULL,
+    deadline DATE NOT NULL
+    status ENUM('selesai','belum selesai') DEFAULT 'belum selesai'
 );
 
---menambahkan data ke tabel buku
-INSERT INTO buku(id_buku, judul, nama_pengarang, penerbit, tahun_terbit)
+--menambahkan data ke tabel tugas
+INSERT INTO tugas(id_tugas, nama, tugas, deadline, status)
 VALUES
-('Laskar pelangi', 'Andrea Hirata', 'Bentang Pustaka', 2005),
-('Negeri 5 Menara', 'Ahmad Fuadi', 'Gramedia', 2009),
-('Bumi Manusia', 'Pramoedya Ananta Toer', 'Hasta Mitra', 1980),
-('Dilan 1990', 'Pidi Baiq', 'Pastel Books', 2014),
-('Rich Dad Poor Dad', 'Robert T. Kiyosaki', 'Plata Publishing', 1997)
+('Ani', 'Mengerjakan Laporan', '2025-10-05', 'belum selesai'),
+('Budi', 'Presentasi kelompok', '2025-10-07', 'belum selesai'),
+('Citra', 'Revisi makalah', '2025-10-28', 'selesai'),
+('Doni', 'Praktikum Jaringan', '2025-10-02', 'belum selesai'),

@@ -1,47 +1,47 @@
 <?php
-require "koneksi.php";
+include "koneksi.php";
 
-$error = "";
-
+// kalau form dikirim
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $judul             =$_POST['judul'];
-    $nama_pengarang    =$_POST['nama pengarang'];
-    $penerbit          =$_POST['penerbit'];
-    $tahun_terbit      =$_POST['tahun_terbit'];
-
-            $sql = "INSERT INTO buku (judul, nama_pengarang, penerbit, tahun_terbit)
-            VALUES ('$judul', '$nama_pengarang', '$penerbit', '$tahun_terbit')";
+    $nama           =$_POST['nama'];
+    $tugas          =$_POST['tugas'];
+    $deadline       =$_POST['deadline'];
+    
+    //otomatis status = 'belum selesai'
+            $sql = "INSERT INTO tugas (nama, tugas, deadline, status)
+            VALUES ('$nama', '$tugas', '$deadline', 'belum selesai')";
             
-            if ($mysqli->query($sql)) {    
-                header("Location: index.php?success=1");
-                exit;
+            if (mysqli_query($koneksi, $sql)) {    
+                header("Location: index.php");
+                exit();
             } else {
-                $error = "Gagal menambahkan data: " . $mysqli->error;
+                echo "Gagal menambahkan data: " . mysqli_error($koneksi);
             }   
 }
 ?>
 <!DOCTYPE html>
-<html Lang="id">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Tambah Buku</title>
+    <title>Tambah Tugas</title>
 </head>
-
 <body>
-    <h1>Form Tambah Buku</h1>
-
-    <?php if ($error): ?>
-        <p style="color:red;"><?php echo $error; ?></p>
-        <?php endif; ?>
-
-        <form method="post">
-            <label>Judul: <input type="text" name="judul"></label><br><br>
-            <label>Nama Pengarang: <input type="text" name="nama_pengarang"></label><br><br>
-            <label>penerbit: <input type="text" name="penerbit"></label><br><br>
-            <label>Tahun Terbit: <input type="text" name="tahun_terbit"></label><br><br>
-            <button type="submit">Simpan</button>
+    <h2>Tambah Tugas</h2>
+    <form method="POST">
+        <label>Nama:</label><br>
+        <select name="nama" required>
+            <option value="">--Pilih Nama--</option>
+            <optin value="Ani">Ani</option>
+            <optin value="Budi">Budi</option>
+            <optin value="Citra">Citra</option>
+            <optin value="Dewi">Dewi</option>
+</select>
+<br><br>
+            <label>Tugas:</label><br><br>
+                <input type="text" name="tugas" required><br><br>
+            <label>Deadline:</label><br><br>
+                <input type="date" name="status" required><br><br>
+            <button type="submit">Tambah</button>
     </form>
-    <p><a href="index.php">Kembali ke Daftar Buku</a></p>
     </body>
     </html>
